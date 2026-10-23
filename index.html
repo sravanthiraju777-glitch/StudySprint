@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#101025" name="theme-color"/>
+<title>StudySprint — Anime Study Hub</title>
+<style>
+:root{--bg:#0b0b18;--panel:#15152b;--panel2:#1d1d38;--text:#f5f4ff;--muted:#aaa9c7;--pink:#ff4fa3;--blue:#62d7ff;--purple:#9b7bff;--green:#70f0b0;--line:#333252}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#292052 0,transparent 38%),var(--bg);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+header{padding:22px 16px 14px;max-width:1000px;margin:auto}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.45rem;letter-spacing:.3px}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--pink),var(--purple));box-shadow:0 0 24px #ff4fa344;font-size:23px}.brand span{color:var(--blue)}.tag{color:var(--muted);margin:9px 0 0;font-size:.92rem}
+main{max-width:1000px;margin:auto;padding:0 16px 40px}.hero{margin:14px 0 18px;padding:22px;border:1px solid #51416e;border-radius:24px;background:linear-gradient(125deg,#2b1948,#171b3d 65%,#112b3b);position:relative;overflow:hidden}.hero:after{content:"⚡";position:absolute;right:16px;top:2px;font-size:100px;opacity:.12;transform:rotate(12deg)}.eyebrow{color:var(--blue);font-weight:800;font-size:.78rem;letter-spacing:2px}.hero h1{font-size:clamp(1.8rem,7vw,3rem);line-height:1.08;margin:10px 0}.hero p{color:#d1cfe9;max-width:550px;margin:0 0 16px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 22px}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:15px}.stat strong{display:block;font-size:1.5rem}.stat span{font-size:.8rem;color:var(--muted)}.section-title{font-size:1.2rem;margin:22px 0 12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}.card h3{margin:0 0 6px}.card p{margin:0 0 12px;color:var(--muted);font-size:.9rem}.field{width:100%;background:#0d0d1d;color:var(--text);border:1px solid #414064;border-radius:12px;padding:12px;font:inherit;margin:5px 0 10px}.btn{border:0;border-radius:12px;padding:11px 15px;background:linear-gradient(100deg,var(--pink),var(--purple));color:#fff;font-weight:800;font:inherit;cursor:pointer}.btn.secondary{background:#282746;border:1px solid #49476c}.btn.small{padding:7px 10px;font-size:.85rem}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row .field{flex:1;min-width:0}.task{display:flex;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #292945}.task:last-child{border:0}.task input{accent-color:var(--pink);width:18px;height:18px}.task.done .task-name{text-decoration:line-through;color:var(--muted)}.task-name{flex:1;overflow-wrap:anywhere}.tiny{font-size:.8rem;color:var(--muted)}.timer{font-size:2.8rem;font-weight:900;text-align:center;margin:8px 0;color:var(--blue);font-variant-numeric:tabular-nums}.timer-status{text-align:center;color:var(--muted);margin-bottom:12px}.progress{height:9px;background:#292945;border-radius:20px;overflow:hidden;margin-top:12px}.progress div{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--blue));transition:width .2s}.note{min-height:120px;resize:vertical}.quote{border-left:3px solid var(--pink);padding-left:12px;color:#ddd8ff;font-weight:650}
+
+.game-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.game-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:15px}
+.game-card h3{margin:0 0 7px}.game-card p{color:var(--muted);font-size:.9rem;margin:0 0 12px}
+.game-result{min-height:25px;color:var(--green);font-size:.9rem;margin-top:9px}
+.game-big{font-size:2rem;text-align:center;padding:8px;color:var(--blue);font-weight:900}
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.memory-tile{min-height:52px;border:1px solid #45416d;border-radius:12px;background:#252344;color:#fff;font-size:1.35rem;cursor:pointer}
+.memory-tile:disabled{opacity:.75;cursor:default}
+.feature-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:15px}
+.feature-card h2{font-size:1.15rem;margin:0 0 8px}
+.flashcard{min-height:120px;display:grid;place-items:center;text-align:center;padding:18px;border-radius:16px;background:linear-gradient(135deg,#242047,#17334a);border:1px solid #45416d;font-size:1.1rem;font-weight:750;cursor:pointer}
+.choice{display:block;width:100%;text-align:left;margin:7px 0;background:#22223e;border:1px solid #414064;border-radius:12px;padding:11px;color:var(--text);cursor:pointer}
+.choice:active{transform:scale(.99)}.feedback{min-height:24px;color:var(--green);font-size:.9rem;margin-top:8px}
+.goal-row{display:flex;gap:10px;align-items:center}.goal-row .field{margin:0}.subject-pill{display:inline-block;background:#282746;border:1px solid #49476c;border-radius:99px;padding:5px 10px;margin:3px;font-size:.8rem;color:#ddd8ff}
+.session-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}.session-nav button{background:#20203a;border:1px solid var(--line);border-radius:12px;padding:11px 5px;color:var(--text);font:inherit;font-weight:750}.session-nav button.active{background:linear-gradient(100deg,var(--pink),var(--purple));border-color:transparent}.session-panel[hidden]{display:none!important}.footer{text-align:center;color:var(--muted);font-size:.8rem;padding:25px 0 0}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">⚡</div><div>Study<span>Sprint</span></div></div><p class="tag">Train your focus. Level up your future.</p></header>
+<main>
+<nav aria-label="StudySprint sections" class="session-nav">
+<button class="active" data-tab="study">📚 Study tools</button><button data-tab="games">⚔️ Anime games</button><button data-tab="quiz">🧠 Quiz</button><button data-tab="profile">👤 Profile</button><button data-tab="points">🏆 Earn points</button><button data-tab="money">💰 Money skills</button>
+</nav>
+<div class="session-panel" id="panel-study">
+<section class="hero"><div class="eyebrow">YOUR NEXT LEVEL STARTS NOW</div><h1>Become the hero<br/>of your own story.</h1><p>Small study missions. Strong focus. One level-up at a time.</p><div class="row"><button class="btn" onclick="document.getElementById('taskInput').focus()">＋ Add a mission</button><button class="btn secondary" onclick="startFocus()">⚡ Start focus</button></div></section>
+<section class="stats"><div class="stat"><strong id="doneCount">0</strong><span>Missions completed</span></div><div class="stat"><strong id="streakCount">0</strong><span>Focus minutes today</span></div><div class="stat"><strong id="taskCount">0</strong><span>Active missions</span></div></section>
+<div class="grid">
+<section class="card"><h2 class="section-title">🎯 Study missions</h2><form class="row" id="taskForm"><input aria-label="New study mission" class="field" id="taskInput" maxlength="120" placeholder="e.g. Revise biology" required=""/><button class="btn" type="submit">Add</button></form><div id="taskList"><p class="tiny">Your missions will appear here.</p></div><div class="progress"><div id="taskProgress"></div></div><p class="tiny" id="progressLabel">0% complete</p></section>
+<section class="card"><h2 class="section-title">⏱️ Focus arena</h2><p>Try a 25-minute focus session. You can pause or reset anytime.</p><div class="timer" id="timer">25:00</div><div class="timer-status" id="timerStatus">Ready when you are.</div><div class="row" style="justify-content:center"><button class="btn" id="timerToggle" onclick="toggleTimer()">Start</button><button class="btn secondary" onclick="resetTimer()">Reset</button></div><div class="row" style="justify-content:center;margin-top:12px"><button class="btn secondary small" onclick="setTimer(15)">15 min</button><button class="btn secondary small" onclick="setTimer(25)">25 min</button><button class="btn secondary small" onclick="setTimer(45)">45 min</button></div></section>
+<section class="card"><h2 class="section-title">📝 Quick notes</h2><p>Notes are saved on this device in this browser.</p><textarea class="field note" id="notes" maxlength="5000" placeholder="Write a reminder, idea, or revision note..."></textarea><div class="row"><span class="tiny" id="saveStatus">Auto-saves on this device</span><button class="btn secondary small" onclick="clearNotes()">Clear notes</button></div></section>
+<section class="card"><h2 class="section-title">🔥 Power-up message</h2><p class="quote" id="quote">You don't need to be perfect. You just need to begin.</p><button class="btn secondary" onclick="newQuote()">New power-up</button></section>
+</div>
+<section class="section-title">🌟 More power-ups</section>
+<div class="grid">
+<section class="feature-card">
+<h2>🗂️ Flashcard dojo</h2>
+<p>Make quick question-and-answer cards for revision.</p>
+<input class="field" id="flashQ" maxlength="180" placeholder="Question (e.g. What is photosynthesis?)"/>
+<textarea class="field" id="flashA" maxlength="500" placeholder="Answer" rows="2"></textarea>
+<button class="btn" onclick="addFlashcard()">Save flashcard</button>
+<div id="flashDeck" style="margin-top:12px"></div>
+<div class="row" style="margin-top:8px"><button class="btn secondary small" onclick="prevFlash()">← Previous</button><button class="btn secondary small" onclick="flipFlash()">Flip card</button><button class="btn secondary small" onclick="nextFlash()">Next →</button></div>
+<p class="tiny" id="flashCount">0 flashcards saved</p>
+</section>
+
+<section class="feature-card">
+<h2>🎯 Daily focus goal</h2>
+<p>Choose how many minutes you want to focus today.</p>
+<div class="goal-row"><input aria-label="Daily focus goal in minutes" class="field" id="goalInput" max="600" min="5" step="5" type="number" value="60"/><button class="btn" onclick="saveGoal()">Save</button></div>
+<div class="progress"><div id="goalProgress"></div></div><p class="tiny" id="goalLabel">0 / 60 minutes</p>
+</section>
+<section class="feature-card">
+<h2>📚 Subject tags</h2>
+<p>Pick a subject to help organize your next mission.</p>
+<div class="row"><select aria-label="Choose a subject" class="field" id="subjectSelect"><option>Math</option><option>Science</option><option>English</option><option>Social Studies</option><option>Computer Science</option><option>Language</option><option>Other</option></select><button class="btn" onclick="addSubject()">Add tag</button></div>
+<div id="subjectTags"></div><p class="tiny">Tags are saved on this device.</p>
+</section>
+</div>
+</div>
+<div class="session-panel" hidden="" id="panel-games">
+<section class="section-title">🎮 Anime battle games</section>
+<div class="game-grid">
+<section class="game-card">
+<h3>⚡ Reaction Rush</h3><p>⚡ Lightning trial: survive 5 signals and build your speed streak.</p>
+<div class="flashcard" id="reactionBox" onclick="reactionTap()" style="min-height:110px">Tap Start to play!</div>
+<div class="row" style="margin-top:9px"><button class="btn" onclick="reactionStart()">Start game</button><span class="tiny" id="reactionBest">Best: —</span></div>
+<div aria-live="polite" class="game-result" id="reactionResult"></div>
+</section>
+<section class="game-card">
+<h3>🧠 Memory Match</h3><p>🧠 Memory challenge: match all 8 pairs with as few moves as possible.</p>
+<div class="memory-grid" id="memoryGrid"></div>
+<div class="row" style="margin-top:9px"><button class="btn" onclick="memoryStart()">New game</button><span class="tiny" id="memoryMoves">Moves: 0</span></div>
+<div aria-live="polite" class="game-result" id="memoryResult"></div>
+</section>
+<section class="game-card">
+<h3>🔢 Number Ninja</h3><p>🥷 Ninja mission: use hot/cold hints to find the hidden number in 5 tries.</p>
+<div class="game-big" id="guessDisplay">🥷</div>
+<div class="row"><input aria-label="Guess number" class="field" id="guessInput" max="20" min="1" placeholder="1–20" type="number"/><button class="btn" onclick="guessNumber()">Guess</button></div>
+<div class="row"><button class="btn secondary small" onclick="newNumberGame()">New round</button></div>
+<div aria-live="polite" class="game-result" id="guessResult">Ready? Make your first guess!</div>
+</section>
+<section class="game-card">
+<h3>➕ Math Sprint</h3><p>🔥 Math battle: beat the clock, build a streak, and unlock harder questions.</p>
+<div class="game-big" id="mathQuestion">3 + 4 = ?</div>
+<div class="row"><input aria-label="Math answer" class="field" id="mathAnswer" placeholder="Your answer" type="number"/><button class="btn" onclick="checkMath()">Answer</button></div>
+<div class="row"><button class="btn secondary small" onclick="newMath()">Next problem</button><span class="tiny" id="mathScore">Score: 0</span><span class="tiny" id="mathStreak">Streak: 0</span></div>
+<div aria-live="polite" class="game-result" id="mathResult"></div>
+</section>
+</div>
+</div>
+<div class="session-panel" hidden="" id="panel-quiz"><section class="feature-card"><h2>🧠 Quiz Arena</h2><p>Answer questions, learn why, and improve your score.</p><strong id="quizQuestion">Which planet is known as the Red Planet?</strong><div id="quizChoices"></div><div aria-live="polite" class="feedback" id="quizFeedback"></div><button class="btn secondary small" onclick="nextQuiz()">Next question ↗</button><p class="tiny">Quiz score: <strong id="quizScore">0</strong></p></section></div>
+<div class="session-panel" hidden="" id="panel-profile"><section class="feature-card"><h2>👤 Anime Hero Profile</h2><p>Your progress is saved on this device.</p><label class="tiny" for="profileName">Hero name</label><input class="field" id="profileName" maxlength="30" placeholder="Enter your nickname"/><button class="btn" onclick="saveProfile()">Save hero name</button><div class="stats"><div class="stat"><strong id="profileTasks">0</strong><span>Tasks done</span></div><div class="stat"><strong id="profileMinutes">0</strong><span>Focus minutes</span></div><div class="stat"><strong id="profileXP">0</strong><span>Total XP</span></div></div><p class="quote" id="profileRank">Rookie hero ⚡</p></section></div>
+<div class="session-panel" hidden="" id="panel-points"><section class="feature-card"><h2>🏆 XP &amp; Rewards</h2><p>Earn points from study and games. XP is a game reward, not real money.</p><div class="game-big"><span id="xpTotal">0</span> XP</div><div class="progress"><div id="xpProgress"></div></div><p class="tiny" id="xpLevel">Level 1 · 0 / 100 XP</p><button class="btn secondary" onclick="claimStudyBonus()">Claim daily study check-in (+5 XP)</button><p class="feedback" id="xpMessage"></p></section></div>
+<div class="session-panel" hidden="" id="panel-money"><section class="feature-card"><h2>💰 Money Skills Academy</h2><p>Learn first; income is never guaranteed.</p><h3>📈 Trading basics</h3><p>Trading means buying and selling assets. Prices can fall as well as rise, and you can lose money. Practice with a pretend portfolio or free simulator; don't deposit money or share financial details.</p><h3>💵 Budgeting &amp; saving</h3><p>A budget tracks money coming in and going out. Saving a little regularly can help with future goals.</p><h3>🛠️ Skills for future earning</h3><ul><li>Learn coding and build small projects.</li><li>Practice design, writing, or video editing.</li><li>Build a portfolio and ask a trusted adult about age rules before taking paid work.</li></ul><h3>🪙 Mini lesson</h3><p>What's safer for a beginner to practice?</p><button class="choice" onclick="moneyAnswer(false)">A. Put real money into a trending coin</button><button class="choice" onclick="moneyAnswer(true)">B. Learn with a free simulator</button><p class="feedback" id="moneyFeedback"></p></section></div>
+<p class="footer">StudySprint • Made for your next level ⚡<br/>Your tasks and notes stay in this browser on this device.</p>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const STORAGE_KEY='studysprint-anime-v1';
+let state={tasks:[],minutesToday:0,day:new Date().toDateString(),notes:''};
+try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');if(saved&&typeof saved==='object')state={...state,...saved};}catch(e){}
+if(state.day!==new Date().toDateString()){state.day=new Date().toDateString();state.minutesToday=0;}
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));$('saveStatus').textContent='Saved on this device ✓';}catch(e){$('saveStatus').textContent='Could not save: browser storage unavailable';}}
+function renderTasks(){const list=$('taskList');list.innerHTML='';if(!state.tasks.length){list.innerHTML='<p class="tiny">No missions yet. Add your first one above!</p>';}state.tasks.forEach((task,i)=>{const row=document.createElement('div');row.className='task'+(task.done?' done':'');const check=document.createElement('input');check.type='checkbox';check.checked=!!task.done;check.setAttribute('aria-label','Complete '+task.name);check.addEventListener('change',()=>{const wasDone=!!state.tasks[i].done;state.tasks[i].done=check.checked;if(check.checked&&!wasDone)addXP(10,'study mission completed');save();renderTasks();renderXP();});const name=document.createElement('span');name.className='task-name';name.textContent=task.name;const del=document.createElement('button');del.className='btn secondary small';del.textContent='✕';del.setAttribute('aria-label','Delete '+task.name);del.addEventListener('click',()=>{state.tasks.splice(i,1);save();renderTasks();});row.append(check,name,del);list.append(row);});const done=state.tasks.filter(t=>t.done).length;const total=state.tasks.length;$('doneCount').textContent=done;$('taskCount').textContent=total-done;$('taskProgress').style.width=(total?done/total*100:0)+'%';$('progressLabel').textContent=(total?Math.round(done/total*100):0)+'% complete';}
+$('taskForm').addEventListener('submit',e=>{e.preventDefault();const name=$('taskInput').value.trim();if(!name)return;state.tasks.push({name,done:false});$('taskInput').value='';save();renderTasks();});
+$('notes').value=state.notes||'';$('notes').addEventListener('input',()=>{state.notes=$('notes').value;save();});
+function clearNotes(){if(confirm('Clear all your saved notes?')){$('notes').value='';state.notes='';save();}}
+$('streakCount').textContent=state.minutesToday||0;
+let remaining=25*60,interval=null,sessionStart=0;
+function paintTimer(){$('timer').textContent=String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0');}
+function setTimer(m){pauseTimer();remaining=m*60;paintTimer();$('timerStatus').textContent=m+' minute session selected.';$('timerToggle').textContent='Start';}
+function toggleTimer(){if(interval){pauseTimer();$('timerStatus').textContent='Paused. Take a breath.';return;}sessionStart=Date.now();$('timerToggle').textContent='Pause';$('timerStatus').textContent='Focus mode activated. You got this!';interval=setInterval(()=>{remaining--;paintTimer();if(remaining<=0){pauseTimer();remaining=0;paintTimer();state.minutesToday=(state.minutesToday||0)+Math.max(1,Math.round((Date.now()-sessionStart)/60000));addXP(15,'focus session completed');$('streakCount').textContent=state.minutesToday;save();$('timerStatus').textContent='Session complete! Great work! 🎉';$('timerToggle').textContent='Start';}},1000);}
+function pauseTimer(){if(interval){clearInterval(interval);interval=null;}$('timerToggle').textContent='Start';}
+function resetTimer(){pauseTimer();remaining=25*60;paintTimer();$('timerStatus').textContent='Ready when you are.';}
+function startFocus(){document.querySelector('.timer').scrollIntoView({behavior:'smooth',block:'center'});toggleTimer();}
+const quotes=['You don’t need to be perfect. You just need to begin.','One page at a time. One level at a time.','Your future self will thank you for today’s effort.','Focus is your superpower. Protect it.','Small progress is still progress. Keep going!','Be consistent, not unstoppable. Rest is part of training.'];
+function newQuote(){$('quote').textContent=quotes[Math.floor(Math.random()*quotes.length)];}
+renderTasks();paintTimer();
+
+// Extra study tools — saved locally on this device.
+state.flashcards=Array.isArray(state.flashcards)?state.flashcards:[];
+state.subjects=Array.isArray(state.subjects)?state.subjects:[];
+state.goal=Number(state.goal)||60;
+let flashIndex=0,flashBack=false,quizPoints=0,quizIndex=0;
+state.xp=Number(state.xp)||0;state.heroName=state.heroName||'';state.studyBonusDay=state.studyBonusDay||'';
+function addXP(n,reason){state.xp=(Number(state.xp)||0)+n;save();renderXP();if($('xpMessage'))$('xpMessage').textContent='+'+n+' XP · '+reason;}
+function renderXP(){if(!$('xpTotal'))return;$('xpTotal').textContent=state.xp;$('xpLevel').textContent='Level '+(Math.floor(state.xp/100)+1)+' · '+(state.xp%100)+' / 100 XP';$('xpProgress').style.width=(state.xp%100)+'%';$('profileXP').textContent=state.xp;$('profileMinutes').textContent=state.minutesToday||0;$('profileTasks').textContent=(state.tasks||[]).filter(t=>t.done).length;$('profileRank').textContent='Level '+(Math.floor(state.xp/100)+1)+' hero · '+(state.xp>=500?'Legend':state.xp>=200?'Elite':state.xp>=100?'Warrior':'Rookie');$('profileName').value=state.heroName;}
+function saveProfile(){state.heroName=$('profileName').value.trim().slice(0,30)||'Study Hero';save();renderXP();}
+function claimStudyBonus(){const day=new Date().toDateString();if(state.studyBonusDay===day){$('xpMessage').textContent='Daily check-in already claimed. Keep learning!';return;}state.studyBonusDay=day;addXP(5,'daily study check-in');}
+function moneyAnswer(ok){$('moneyFeedback').textContent=ok?'Correct! A simulator lets you learn without risking real money. 📚':'Careful! Trending assets can lose value. Learn with a free simulator first.';}
+
+const quizzes=[
+ {q:'Which planet is known as the Red Planet?',a:['Venus','Mars','Jupiter'],correct:1,why:'Mars looks reddish because of iron-rich dust.'},
+ {q:'What is 8 × 7?',a:['54','56','64'],correct:1,why:'8 groups of 7 equals 56.'},
+ {q:'Which gas do plants take in during photosynthesis?',a:['Oxygen','Nitrogen','Carbon dioxide'],correct:2,why:'Plants use carbon dioxide, water and light to make sugars.'},
+ {q:'How many sides does a hexagon have?',a:['Five','Six','Eight'],correct:1,why:'A hexagon has six sides.'},
+ {q:'Which is the largest ocean on Earth?',a:['Atlantic','Indian','Pacific'],correct:2,why:'The Pacific Ocean is the largest.'}
+];
+function addFlashcard(){const q=$('flashQ').value.trim(),a=$('flashA').value.trim();if(!q||!a){alert('Add both a question and an answer first.');return;}state.flashcards.push({q,a});$('flashQ').value='';$('flashA').value='';flashIndex=state.flashcards.length-1;flashBack=false;save();renderFlash();}
+function renderFlash(){const deck=$('flashDeck');if(!state.flashcards.length){deck.innerHTML='<div class="flashcard">Your flashcards will appear here.</div>';}else{const c=state.flashcards[flashIndex];deck.innerHTML='';const el=document.createElement('div');el.className='flashcard';el.textContent=flashBack?c.a:c.q;el.setAttribute('role','button');el.tabIndex=0;el.setAttribute('aria-label','Tap to flip flashcard');el.onclick=flipFlash;deck.append(el);} $('flashCount').textContent=state.flashcards.length+' flashcard'+(state.flashcards.length===1?'':'s')+' saved'+(state.flashcards.length?' • '+(flashIndex+1)+' of '+state.flashcards.length:'');}
+function flipFlash(){if(state.flashcards.length){flashBack=!flashBack;renderFlash();}}
+function nextFlash(){if(state.flashcards.length){flashIndex=(flashIndex+1)%state.flashcards.length;flashBack=false;renderFlash();}}
+function prevFlash(){if(state.flashcards.length){flashIndex=(flashIndex-1+state.flashcards.length)%state.flashcards.length;flashBack=false;renderFlash();}}
+function renderQuiz(){const q=quizzes[quizIndex%quizzes.length];$('quizQuestion').textContent=q.q;$('quizChoices').innerHTML='';$('quizFeedback').textContent='';q.a.forEach((answer,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.onclick=()=>{if(b.dataset.answered)return;Array.from($('quizChoices').children).forEach(x=>x.dataset.answered='yes');if(i===q.correct){addXP(3,'quiz answer correct');quizPoints++;$('quizScore').textContent=quizPoints;$('quizFeedback').textContent='Correct! '+q.why;}else{$('quizFeedback').textContent='Not quite. '+q.why;}};$('quizChoices').append(b);});}
+function nextQuiz(){quizIndex=(quizIndex+1)%quizzes.length;renderQuiz();}
+function saveGoal(){const n=Math.max(5,Math.min(600,Number($('goalInput').value)||60));state.goal=n;$('goalInput').value=n;save();renderGoal();}
+function renderGoal(){const goal=state.goal||60,done=state.minutesToday||0;$('goalProgress').style.width=Math.min(100,done/goal*100)+'%';$('goalLabel').textContent=done+' / '+goal+' minutes today';}
+function addSubject(){const name=$('subjectSelect').value;if(!state.subjects.includes(name))state.subjects.push(name);save();renderSubjects();}
+function renderSubjects(){const el=$('subjectTags');el.innerHTML='';state.subjects.forEach(name=>{const pill=document.createElement('span');pill.className='subject-pill';pill.textContent=name+' ';const b=document.createElement('button');b.className='btn secondary small';b.textContent='×';b.setAttribute('aria-label','Remove '+name);b.onclick=()=>{state.subjects=state.subjects.filter(x=>x!==name);save();renderSubjects();};pill.append(b);el.append(pill);});}
+const oldSave=save;
+save=function(){oldSave();if($('streakCount'))$('streakCount').textContent=state.minutesToday||0;if($('goalProgress'))renderGoal();};
+
+// Four different mini-game mechanics. Everything stays local in this browser.
+let reactionState='idle',reactionStartTime=0,reactionTimeout=null,reactionBest=null,reactionRound=0,reactionRunBest=0;
+function reactionStart(){clearTimeout(reactionTimeout);reactionRound=0;reactionRunBest=0;reactionNext();}
+function reactionNext(){clearTimeout(reactionTimeout);reactionState='waiting';$('reactionBox').textContent='Signal '+(reactionRound+1)+'/5 — wait…';$('reactionBox').style.background='linear-gradient(135deg,#74334f,#38234f)';$('reactionResult').textContent='Wait for green. Early taps reset this run!';reactionTimeout=setTimeout(()=>{if(reactionState==='waiting'){reactionState='go';reactionStartTime=Date.now();$('reactionBox').textContent='TAP NOW! ⚡';$('reactionBox').style.background='linear-gradient(135deg,#146b4a,#193d51)';}},900+Math.random()*2600);}
+function reactionTap(){if(reactionState==='waiting'){clearTimeout(reactionTimeout);reactionState='idle';reactionRound=0;$('reactionBox').textContent='False start! Try a fresh run.';$('reactionBox').style.background='';$('reactionResult').textContent='Too early! Your 5-signal run has reset.';}else if(reactionState==='go'){const ms=Date.now()-reactionStartTime;reactionRunBest=reactionRunBest?Math.max(reactionRunBest,ms):ms;reactionRound++;reactionState='idle';$('reactionBox').textContent=ms+' ms';$('reactionBox').style.background='';if(reactionBest===null||ms<reactionBest)reactionBest=ms;$('reactionBest').textContent='Best: '+reactionBest+' ms';if(reactionRound>=5){addXP(10,'Reaction Rush cleared');$('reactionResult').textContent='Run cleared! Average reaction: '+Math.round((reactionRunBest+ms)/2)+' ms 🏆';$('reactionBox').textContent='🏆 5 signals cleared!';}else{$('reactionResult').textContent=(ms<250?'Lightning fast! ⚡':ms<400?'Sharp reflexes! 🎯':'Keep training!')+' Next signal loading…';setTimeout(()=>{if(reactionState==='idle'&&reactionRound<5)reactionNext();},650);}}else{$('reactionResult').textContent='Tap Start 5-signal run first.';}}
+let memorySymbols=[],memoryOpen=[],memoryFound=[],memoryMoveCount=0,memoryLock=false,memoryStarted=0;
+function memoryStart(){const icons=['⚡','🌙','🔥','⭐','🎯','🚀','🍀','💎'];memorySymbols=[...icons,...icons].sort(()=>Math.random()-.5);memoryOpen=[];memoryFound=[];memoryMoveCount=0;memoryLock=false;memoryStarted=Date.now();$('memoryMoves').textContent='Moves: 0';$('memoryResult').textContent='Find all 8 pairs. Perfect round = 8 moves!';renderMemory();}
+function renderMemory(){const grid=$('memoryGrid');grid.innerHTML='';memorySymbols.forEach((sym,i)=>{const b=document.createElement('button');b.className='memory-tile';b.textContent=memoryFound.includes(i)||memoryOpen.includes(i)?sym:'?';b.setAttribute('aria-label',memoryFound.includes(i)||memoryOpen.includes(i)?sym:'Hidden card');b.disabled=memoryFound.includes(i)||memoryOpen.includes(i)||memoryLock;b.onclick=()=>memoryFlip(i);grid.append(b);});}
+function memoryFlip(i){if(memoryLock||memoryOpen.includes(i)||memoryFound.includes(i))return;memoryOpen.push(i);renderMemory();if(memoryOpen.length===2){memoryMoveCount++;$('memoryMoves').textContent='Moves: '+memoryMoveCount;if(memorySymbols[memoryOpen[0]]===memorySymbols[memoryOpen[1]]){memoryFound.push(...memoryOpen);memoryOpen=[];renderMemory();if(memoryFound.length===memorySymbols.length){addXP(10,'Memory Match cleared');const secs=Math.round((Date.now()-memoryStarted)/1000);$('memoryResult').textContent='All pairs found in '+memoryMoveCount+' moves and '+secs+'s! '+(memoryMoveCount===8?'PERFECT MEMORY! 💎':'Mission cleared! 🎉');}}else{memoryLock=true;setTimeout(()=>{memoryOpen=[];memoryLock=false;renderMemory();},650);}}}
+let secretNumber=0,guessTries=0,guessFinished=false,guessMin=1,guessMax=20;
+function newNumberGame(){guessMin=1;guessMax=20;secretNumber=guessMin+Math.floor(Math.random()*(guessMax-guessMin+1));guessTries=0;guessFinished=false;$('guessInput').min=guessMin;$('guessInput').max=guessMax;$('guessInput').value='';$('guessInput').disabled=false;$('guessDisplay').textContent='🥷 1–20';$('guessResult').textContent='Mission: find the secret number in 5 tries.';}
+function guessNumber(){if(guessFinished)return;const n=Number($('guessInput').value);if(!Number.isInteger(n)||n<guessMin||n>guessMax){$('guessResult').textContent='Enter a whole number from '+guessMin+' to '+guessMax+'.';return;}guessTries++;if(n===secretNumber){addXP(5,'Number Ninja cleared');$('guessResult').textContent='Mission cleared in '+guessTries+' '+(guessTries===1?'try':'tries')+'! 🥷';$('guessDisplay').textContent='🎯 '+secretNumber;guessFinished=true;}else if(guessTries>=5){$('guessResult').textContent='Mission failed! The number was '+secretNumber+'. Start a new round.';$('guessDisplay').textContent='💥 '+secretNumber;guessFinished=true;}else{$('guessResult').textContent=(n<secretNumber?'Too low ⬆️':'Too high ⬇️')+' · '+(Math.abs(n-secretNumber)<=3?'Very close! 🔥':Math.abs(n-secretNumber)<=6?'Getting warmer 🌡️':'Keep searching ❄️')+' · '+(5-guessTries)+' tries left';}$('guessInput').disabled=guessFinished;}
+let mathA=3,mathB=4,mathOp='+',mathPoints=0,mathAnswered=false,mathStreak=0,mathLevel=1,mathTimer=null,mathTimeLeft=15;
+function newMath(){clearInterval(mathTimer);mathLevel=1+Math.floor(mathPoints/5);const max=mathLevel===1?12:mathLevel===2?20:30;mathA=1+Math.floor(Math.random()*max);mathB=1+Math.floor(Math.random()*max);const ops=mathLevel===1?['+','×']:['+','−','×'];mathOp=ops[Math.floor(Math.random()*ops.length)];if(mathOp==='−'&&mathB>mathA)[mathA,mathB]=[mathB,mathA];mathAnswered=false;mathTimeLeft=15;$('mathQuestion').textContent='LV '+mathLevel+' · '+mathA+' '+mathOp+' '+mathB+' = ?';$('mathAnswer').value='';$('mathResult').textContent='15 seconds. Solve it!';$('mathScore').textContent='Score: '+mathPoints;$('mathStreak').textContent='Streak: '+mathStreak;mathTimer=setInterval(()=>{if(mathAnswered){clearInterval(mathTimer);return;}mathTimeLeft--;$('mathResult').textContent='⏱ '+mathTimeLeft+' seconds left!';if(mathTimeLeft<=0){mathAnswered=true;mathStreak=0;clearInterval(mathTimer);$('mathResult').textContent='Time up! The answer was '+mathExpected()+'. Tap Next problem.';$('mathStreak').textContent='Streak: 0';}},1000);}
+function mathExpected(){return mathOp==='+'?mathA+mathB:mathOp==='−'?mathA-mathB:mathA*mathB;}
+function checkMath(){if(mathAnswered){$('mathResult').textContent='Tap Next problem for another battle.';return;}if($('mathAnswer').value.trim()===''){$('mathResult').textContent='Enter your answer first.';return;}mathAnswered=true;clearInterval(mathTimer);if(Number($('mathAnswer').value)===mathExpected()){addXP(2,'correct Math Sprint answer');mathPoints+=1+Math.floor(mathStreak/3);mathStreak++;$('mathResult').textContent='Correct! +'+(1+Math.floor((mathStreak-1)/3))+' points ⚡ Streak x'+mathStreak+'!';}else{mathStreak=0;$('mathResult').textContent='Battle missed! Answer: '+mathExpected()+'. Streak reset — try again!';}$('mathScore').textContent='Score: '+mathPoints;$('mathStreak').textContent='Streak: '+mathStreak;}
+memoryStart();newNumberGame();newMath();
+
+renderFlash();renderQuiz();$('quizScore').textContent=quizPoints;$('goalInput').value=state.goal;renderGoal();renderSubjects();
+function showTab(tab){document.querySelectorAll('.session-panel').forEach(p=>p.hidden=p.id!=='panel-'+tab);document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));window.scrollTo({top:0,behavior:'smooth'});if(tab==='profile'||tab==='points')renderXP();}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+const gameTitle=[...document.querySelectorAll('#panel-games .section-title')].find(e=>e.textContent.includes('Anime battle games'));if(gameTitle&&gameTitle.nextElementSibling&&gameTitle.nextElementSibling.classList.contains('game-grid'))document.getElementById('panel-games').appendChild(gameTitle.nextElementSibling);
+renderXP();
+
+</script>
+</body>
+</html>
